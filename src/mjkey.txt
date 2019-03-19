@@ -1,0 +1,20 @@
+MuJoCo Pro Personal license activation key, number 63539, type 6.
+
+Issued to Maru Gabriel Sanchez Baul <msbaul@up.edu.ph>.
+
+Expires November 26, 2019.
+
+This file activates MuJoCo Pro on a single computer with id:
+LINUX_405E0SM0T2HNM500MBB_S1R7J92CA1140L136
+
+Do not modify this file. Its entire content, including the
+plain text section, is used by the activation manager.
+
+ae2e45d93536b5c9ab3bf7f4334ce4f722bf491696f51184c7f5aacff4de8d43
+fa8c1a0489f1069bb5363e4d1381d301674f149fff313c572e3d2a92cc596350
+c725261253fb3cbc0478da505e547ff4945df0630d2a052a298293cd0aa5ba97
+33733a6830f20dc26cbae41fb098cead2be17b0b64d9a1ab5aaa9c2ff2a95985
+ac8431ae70aed65441945fa8ecde653f15b1253f994888b3a41089551f96a836
+3c6d194176356bce00af5154be3b192124e0ed62a5f89332b0918c6ce5d9a597
+88d3950229bf2f239a02f95b30bbb08cb4bd1260bb588a333636aa93113ad7ee
+0d0c56387d94d7c5b67a179c3359b3e05553fe54ee2204530db02b000feadcfa
