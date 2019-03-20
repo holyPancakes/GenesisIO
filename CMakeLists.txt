@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.10)
 project(GenesisIO)
 
 set(CMAKE_CXX_STANDARD
@@ -8,11 +8,9 @@ set(CMAKE_CXX_FLAGS
 SET(CMAKE_C_FLAGS
         "-c -O2 -mavx")
 set(MJ200_DIR
-        ~/.mujoco/mujoco200)
+        Libraries/Mujoco200)
 set(MULTINEAT_DIR
-        ~/MultiNEAT/MultiNEAT)
-set(NANOGUI_DIR
-        ~/nanogui)
+        Libraries/MultiNEAT)
 
 
 ##### ---------  MULTINeat(by Peter Chervenski) SOURCE FILES --------- ####
@@ -59,30 +57,11 @@ add_library(uitools STATIC ${MJ200_DIR}/include/uitools.c)
 target_include_directories(uitools PUBLIC ${MJ200_DIR}/include)
 
 
-#### ----------------------------- NANOGUI --------------------------------------####
-
-##Nanogui Header Path
-find_path(NANOGUI_HEADER_PATH
-        NAMES nanogui.h
-        PATHS ${NANOGUI_DIR}/include/nanogui)
-
-##NanoGUI Extra Libraries
-set(NANOGUI_EXTRA_LIBS "")
-list(APPEND NANOGUI_EXTRA_LIBS GL GLU GLEW Xxf86vm Xrandr Xinerama Xcursor Xi X11 pthread dl)
-
-##NanoGUI Extra Include Directories Path
-set(NANOGUI_EXTRA_INCS "")
-list(APPEND NANOGUI_EXTRA_INCS "${NANOGUI_DIR}/ext/glad/include")
-list(APPEND NANOGUI_EXTRA_INCS "${NANOGUI_DIR}/ext/glfw/include")
-list(APPEND NANOGUI_EXTRA_INCS "${NANOGUI_DIR}/ext/nanovg/src")
-list(APPEND NANOGUI_EXTRA_INCS "${NANOGUI_DIR}/ext/eigen")
-
-
 #############___Basic Simulation Example___#############
 
 #executable simulator basic from mujoco200 sample
 add_executable(basic
-        src/basic.cpp
+        Sources/basic.cpp
         ${MULTINEAT_SOURCE_FILES})
 
 ####include Mujoco header
@@ -92,18 +71,18 @@ target_include_directories(basic PUBLIC
 ####link libraries
 target_link_libraries(basic PUBLIC
         ${MJ200_LIB}
-        -lX11
-        -lGL
-        -lm
-        -lGLU
-        -lGLEW
-        ${MJ200_DIR}/bin/libglfw.so.3)
+        X11
+        GL
+        m
+        GLU
+        GLEW
+        libglfw.so.3)
 
 #############___Advanced Simulation Example___#############
 
 add_executable(advanced
-        src/simulate.cpp
-        ${MULTINEAT_SOURCE_FILES} include/genio.hpp)
+        Sources/simulate.cpp
+        ${MULTINEAT_SOURCE_FILES})
 
 ####include Mujoco header
 target_include_directories(advanced PUBLIC
@@ -112,29 +91,13 @@ target_include_directories(advanced PUBLIC
 ####link libraries
 target_link_libraries(advanced PUBLIC
         ${MJ200_LIB}
-        -lX11
-        -lGL
-        -lm
-        -lGLU
-        -lGLEW
-        ${MJ200_DIR}/bin/libglfw.so.3
+        X11
+        GL
+        m
+        GLU
+        GLEW
+        libglfw.so.3
         uitools)
-
-
-#############___NANOGUI EXAMPLE___#############
-
-
-add_executable(guisample
-        src/example2.cpp)
-
-target_include_directories(guisample PUBLIC
-        ${NANOGUI_HEADER_PATH}      # Nanogui Header
-        ${NANOGUI_EXTRA_INCS}       # Nanogui Extra Include Directories
-        )
-
-target_link_libraries(guisample PUBLIC
-        nanogui
-        ${NANOGUI_EXTRA_LIBS})
 
 
 #############___GenesisIO___#############
@@ -142,22 +105,24 @@ target_link_libraries(guisample PUBLIC
 
 ##executable GenesisIO
 add_executable(GenesisIO
-        include/genio.hpp
-        src/genio.cpp
+        Sources/genio.cpp
+        Headers/genio.hpp
         ${MULTINEAT_SOURCE_FILES}  )
 
-##include headers
+##headers directories
 target_include_directories(GenesisIO PUBLIC
-        include
+        Headers
         ${MJ_HEADER_PATH}           # Mujoco Header
-        ${NANOGUI_HEADER_PATH}      # Nanogui Header
-        ${NANOGUI_EXTRA_INCS}       # Nanogui Extra Include Directories
         )
+
 
 ##link libraries
 target_link_libraries(GenesisIO PUBLIC
         ${MJ200_LIB}
-        ${MJ200_DIR}/bin/libglfw.so.3
-        uitools
-        nanogui
-        ${NANOGUI_EXTRA_LIBS})
+        libglfw.so.3
+        X11
+        GL
+        m
+        GLU
+        GLEW
+        uitools)
